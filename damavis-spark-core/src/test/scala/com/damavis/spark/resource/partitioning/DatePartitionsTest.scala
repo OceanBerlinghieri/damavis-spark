@@ -2,7 +2,7 @@ package com.damavis.spark.resource.partitioning
 
 import com.damavis.spark.fs.FileSystem
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 
 import java.time.LocalDateTime
 
@@ -13,7 +13,7 @@ object DatePartitionsTest {
   val MAY_FIFTEEN = "year=2020/month=05/day=15"
 }
 
-class DatePartitionsTest extends WordSpec with MockFactory {
+class DatePartitionsTest extends AnyWordSpec with MockFactory {
   import DatePartitionsTest._
 
   "DatePartitions.generate" when {

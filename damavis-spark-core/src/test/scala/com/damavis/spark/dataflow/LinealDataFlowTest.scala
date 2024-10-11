@@ -3,9 +3,9 @@ package com.damavis.spark.dataflow
 import com.damavis.spark.dataflow.entities._
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
 import org.apache.spark.sql.DataFrame
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 
-class LinealDataFlowTest extends WordSpec with DataFrameSuiteBase {
+class LinealDataFlowTest extends AnyWordSpec with DataFrameSuiteBase {
 
   import spark.implicits._
   import utils.implicits._

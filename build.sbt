@@ -2,8 +2,8 @@ lazy val scala212 = "2.12.11"
 lazy val scala211 = "2.11.12"
 lazy val supportedScalaVersions = List(scala212, scala211)
 
-val sparkVersion = "3.0.0"
-val sparkTestVersion = "2.4.5"
+val sparkVersion = "3.5.0"
+val sparkTestVersion = "3.5.0"
 
 val dependencies = Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion % Provided,
@@ -14,9 +14,9 @@ val dependencies = Seq(
   "com.typesafe" % "config" % "1.3.2")
 
 val testDependencies = Seq(
-  "org.scalatest" %% "scalatest" % "3.0.5" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.19" % Test,
   "org.scalamock" %% "scalamock" % "4.1.0" % Test,
-  "com.holdenkarau" %% "spark-testing-base" % s"${sparkTestVersion}_0.14.0" % Test)
+  "com.holdenkarau" %% "spark-testing-base" % s"${sparkTestVersion}_1.5.3" % Test)
 
 import xerial.sbt.Sonatype._
 

@@ -1,17 +1,12 @@
 package com.damavis.spark.utils
 
-import com.holdenkarau.spark.testing.{
-  DataFrameSuiteBase,
-  HDFSClusterLike,
-  SharedSparkContext,
-  SparkContextProvider
-}
+import com.holdenkarau.spark.testing.{DataFrameSuiteBase, HDFSClusterLike, SharedSparkContext, SparkContextProvider}
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 
 class SparkTestBase
-  extends WordSpec
+  extends AnyWordSpec
     with DataFrameSuiteBase
     with SparkTestSupport
     with SparkContextProvider

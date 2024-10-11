@@ -3,9 +3,9 @@ package com.damavis.spark
 import com.damavis.spark.database.{Column, DbManager, DummyTable, RealTable}
 import com.damavis.spark.resource.Format
 import com.damavis.spark.utils.HDFSCluster
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
-class SparkAppTest extends FlatSpec with SparkApp {
+class SparkAppTest extends AnyFlatSpec with SparkApp {
 
   override val name: String = "SparkAppTest"
 
