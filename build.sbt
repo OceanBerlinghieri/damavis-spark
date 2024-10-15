@@ -10,13 +10,17 @@ val dependencies = Seq(
   "org.apache.spark" %% "spark-sql" % sparkVersion % Provided,
   "org.apache.spark" %% "spark-hive" % sparkVersion % Provided,
   "org.apache.spark" %% "spark-avro" % sparkVersion % Provided,
-  "io.delta" %% "delta-core" % "0.7.0" % Provided,
-  "com.typesafe" % "config" % "1.3.2")
+  "io.delta" %% "delta-core" % "2.4.0",
+
+  "com.typesafe" % "config" % "1.4.3")
 
 val testDependencies = Seq(
   "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-  "org.scalamock" %% "scalamock" % "4.1.0" % Test,
-  "com.holdenkarau" %% "spark-testing-base" % s"${sparkTestVersion}_1.5.3" % Test)
+  "org.scalamock" %% "scalamock" % "6.0.0" % Test,
+  "org.apache.hadoop" % "hadoop-hdfs" % "3.3.6" % Test,
+  "org.apache.hadoop" % "hadoop-common" % "3.3.6" % Test,
+  "org.apache.hadoop" % "hadoop-minicluster" % "3.3.6" % Test,
+  "com.holdenkarau" %% "spark-testing-base" % s"${sparkTestVersion}_2.0.1" % Test)
 
 import xerial.sbt.Sonatype._
 

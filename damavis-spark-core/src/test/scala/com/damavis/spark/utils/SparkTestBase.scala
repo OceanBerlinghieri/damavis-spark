@@ -1,6 +1,6 @@
 package com.damavis.spark.utils
 
-import com.holdenkarau.spark.testing.{DataFrameSuiteBase, HDFSClusterLike, SharedSparkContext, SparkContextProvider}
+import com.holdenkarau.spark.testing.{DataFrameSuiteBase, SharedSparkContext, SparkContextProvider}
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.scalatest.wordspec.AnyWordSpec
@@ -10,7 +10,6 @@ class SparkTestBase
     with DataFrameSuiteBase
     with SparkTestSupport
     with SparkContextProvider
-    with HDFSClusterLike
     with SharedSparkContext {
 
   var hdfsUri: String = _
@@ -20,7 +19,7 @@ class SparkTestBase
   lazy val root: String = s"${HDFSCluster.uri}/$name"
   lazy implicit val session: SparkSession = spark
 
-  System.setSecurityManager(null) // Required hack
+  //System.setSecurityManager(null) // Required hack
 
   override def conf: SparkConf = {
     new SparkConf()
