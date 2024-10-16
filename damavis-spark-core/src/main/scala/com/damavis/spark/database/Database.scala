@@ -169,7 +169,7 @@ class Database(db: SparkDatabase,
 
   private def combineWithCatalogMetadata(sparkSession: SparkSession, table: CatalogTable): CatalogTable = {
     val deltaLog = DeltaLog.forTable(sparkSession, new Path(table.location))
-    val metadata = deltaLog.snapshot.metadata
+    val metadata = deltaLog.update().metadata
     table.copy(schema = metadata.schema, partitionColumnNames = metadata.partitionColumns)
   }
 
