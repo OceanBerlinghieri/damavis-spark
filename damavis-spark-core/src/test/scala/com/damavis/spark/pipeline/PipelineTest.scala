@@ -25,7 +25,7 @@ class PipelineTest extends SparkTestBase {
       import com.damavis.spark.pipeline.implicits._
 
       val personDf = dfFromAuthors(hemingway, bradbury, dickens)
-      personDf.write.parquet(s"/$name/external-authors")
+      personDf.write.mode("overwrite").parquet(s"/$name/external-authors")
 
       val nationalitiesTable = db.getTable("nationalities").get
 

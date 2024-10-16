@@ -9,12 +9,12 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.catalog.{Catalog, Database => SparkDatabase}
 import org.apache.spark.sql.catalyst.TableIdentifier
 import org.apache.spark.sql.catalyst.catalog.CatalogTable
-import org.apache.spark.sql.delta.{DeltaLog, DeltaTableUtils}
+import org.apache.spark.sql.delta.DeltaLog
 import org.apache.spark.sql.types.StructType
 import org.slf4j.LoggerFactory
 
 import scala.language.postfixOps
-import scala.util.{Failure, Success, Try}
+import scala.util.Try
 
 class Database(db: SparkDatabase,
                fs: FileSystem,
@@ -146,7 +146,7 @@ class Database(db: SparkDatabase,
     try {
       Class.forName("org.apache.spark.sql.delta.DeltaTableUtils")
       if (catalogTable.provider == Option("delta")) {
-        DeltaTableUtils.combineWithCatalogMetadata(spark, catalogTable)
+        combineWithCatalogMetadata(spark, catalogTable)
       } else {
         catalogTable
       }
@@ -166,6 +166,13 @@ class Database(db: SparkDatabase,
     }
 
   }
+
+  private def combineWithCatalogMetadata(sparkSession: SparkSession, table: CatalogTable): CatalogTable = {
+    val deltaLog = DeltaLog.forTable(sparkSession, new Path(table.location))
+    val metadata = deltaLog.snapshot.metadata
+    table.copy(schema = metadata.schema, partitionColumnNames = metadata.partitionColumns)
+  }
+
 
   private def extractColumns(name: String): Seq[Column] = {
 

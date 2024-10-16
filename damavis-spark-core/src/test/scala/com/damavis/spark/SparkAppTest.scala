@@ -2,7 +2,6 @@ package com.damavis.spark
 
 import com.damavis.spark.database.{Column, DbManager, DummyTable, RealTable}
 import com.damavis.spark.resource.Format
-import com.damavis.spark.utils.HDFSCluster
 import org.scalatest.flatspec.AnyFlatSpec
 
 class SparkAppTest extends AnyFlatSpec with SparkApp {
@@ -15,7 +14,7 @@ class SparkAppTest extends AnyFlatSpec with SparkApp {
     // Where to store managed tables
     "spark.sql.warehouse.dir" -> warehouseDir,
     // URI of the hdfs server
-    "spark.hadoop.fs.default.name" -> HDFSCluster.uri,
+    "spark.hadoop.fs.default.name" -> "hdfs://localhost:9000",
     // Hive metastore configuration
     "spark.sql.extensions" -> "io.delta.sql.DeltaSparkSessionExtension",
     "spark.sql.catalog.spark_catalog" -> "org.apache.spark.sql.delta.catalog.DeltaCatalog",
@@ -39,7 +38,7 @@ class SparkAppTest extends AnyFlatSpec with SparkApp {
     val expected = RealTable(
       "test",
       "dummy_going_real",
-      s"hdfs://localhost:8020${warehouseDir}/test.db/dummy_going_real",
+      s"hdfs://localhost:9000${warehouseDir}/test.db/dummy_going_real",
       Format.Parquet,
       managed = true,
       Column("number", "int", partitioned = false, nullable = true) :: Nil)

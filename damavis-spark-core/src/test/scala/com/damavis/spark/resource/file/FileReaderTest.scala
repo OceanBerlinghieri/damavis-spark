@@ -21,7 +21,7 @@ class FileReaderTest extends SparkTestBase {
       "read properly parquet data" in {
         val authors = dfFromAuthors(hemingway, wells)
         val path = s"$root/authors1"
-        authors.write.parquet(path)
+        authors.write.mode("overwrite").parquet(path)
 
         val reader = FileReaderBuilder(Format.Parquet, path).reader()
         val read = reader.read()
@@ -32,7 +32,7 @@ class FileReaderTest extends SparkTestBase {
       "read properly avro data" in {
         val authors = dfFromAuthors(hemingway, dickens)
         val path = s"$root/authors2"
-        authors.write.format("avro").save(path)
+        authors.write.mode("overwrite").format("avro").save(path)
 
         val reader = FileReaderBuilder(Format.Avro, path).reader()
         val read = reader.read()
@@ -64,7 +64,7 @@ class FileReaderTest extends SparkTestBase {
 
         val path = s"/$name/authors4"
 
-        authors.write.partitionBy("year", "month", "day").parquet(path)
+        authors.write.mode("overwrite").partitionBy("year", "month", "day").parquet(path)
 
         val from = LocalDate.parse("1802-01-01")
         val to = LocalDate.parse("1802-12-31")
@@ -126,7 +126,7 @@ class FileReaderTest extends SparkTestBase {
 
         val path = s"/$name/logs1"
 
-        logs.write.partitionBy("year", "month", "day", "hour").parquet(path)
+        logs.write.mode("overwrite").partitionBy("year", "month", "day", "hour").parquet(path)
 
         val from = LocalDateTime.parse("2020-01-01T05:00:00")
         val to = LocalDateTime.parse("2020-01-01T18:00:00")

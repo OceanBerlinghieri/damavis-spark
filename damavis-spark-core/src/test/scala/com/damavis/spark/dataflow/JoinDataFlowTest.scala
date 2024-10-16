@@ -89,9 +89,9 @@ class JoinDataFlowTest extends SparkTestBase {
         .reader()
         .read()
 
-      val expectedData = (Row("Hemingway", "A Farewell to Arms", 1929) ::
+      val expectedData = (Row("Dickens", "Oliver Twist", 1839) ::
         Row("H.G. Wells", "The Time Machine", 1895) ::
-        Row("Dickens", "Oliver Twist", 1839) ::
+        Row("Hemingway", "A Farewell to Arms", 1929) ::
         Nil).asJava
 
       val schema = StructType(

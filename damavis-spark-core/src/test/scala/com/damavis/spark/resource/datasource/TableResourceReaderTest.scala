@@ -20,7 +20,7 @@ class TableResourceReaderTest extends SparkTestBase {
     "read successfully an external table" in {
       val authors = dfFromAuthors(hemingway, wells)
 
-      authors.write.parquet(s"$root/authors")
+      authors.write.mode("overwrite").parquet(s"$root/authors")
 
       val tryTable =
         db.getUnmanagedTable("authors", s"/$name/authors", Format.Parquet)

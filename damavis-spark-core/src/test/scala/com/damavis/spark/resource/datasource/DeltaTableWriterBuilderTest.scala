@@ -46,6 +46,7 @@ class DeltaTableWriterBuilderTest extends SparkTestBase {
       val written2 = TableReaderBuilder(read2)
         .reader()
 
+
       assertDataFrameEquals(written2.read(), authors)
 
     }

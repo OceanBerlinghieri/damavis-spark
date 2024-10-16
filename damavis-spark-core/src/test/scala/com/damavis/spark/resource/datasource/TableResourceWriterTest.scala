@@ -43,7 +43,7 @@ class TableResourceWriterTest extends SparkTestBase {
 
     "write successfully to an external table" in {
       val personDf = dfFromAuthors(hemingway)
-      personDf.write.parquet(s"$root/person")
+      personDf.write.mode("overwrite").parquet(s"$root/person")
 
       val tableName = "myAuthorsTable"
       val table =

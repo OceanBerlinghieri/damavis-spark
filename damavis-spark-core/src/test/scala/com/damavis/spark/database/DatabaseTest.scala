@@ -22,6 +22,7 @@ class DatabaseTest extends SparkTestBase {
       val numbersDf = (1 :: 2 :: 3 :: 4 :: Nil).toDF("number")
 
       numbersDf.write
+        .mode("overwrite")
         .parquet(s"$root/numbers_external")
 
       assert(db.catalog.listTables().isEmpty)
@@ -67,6 +68,7 @@ class DatabaseTest extends SparkTestBase {
 
       //Register an external table, and try to get it again but with wrong parameters
       numbersDf.write
+        .mode("overwrite")
         .parquet(s"/$name/numbers_external2")
 
       db.getUnmanagedTable(
@@ -105,7 +107,7 @@ class DatabaseTest extends SparkTestBase {
       val expected = RealTable(
         "test",
         "dummy_going_real",
-        s"hdfs://localhost:8020${warehouseDir.get}/test.db/dummy_going_real",
+        s"${warehouseDir.get}/test.db/dummy_going_real",
         Format.Parquet,
         managed = true,
         Column("number", "int", partitioned = false, nullable = true) :: Nil)

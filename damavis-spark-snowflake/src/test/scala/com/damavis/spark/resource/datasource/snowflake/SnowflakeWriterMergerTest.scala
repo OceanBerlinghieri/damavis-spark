@@ -1,11 +1,10 @@
 package com.damavis.spark.resource.datasource.snowflake
 
 import java.sql.Date
-
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 
-class SnowflakeWriterMergerTest extends WordSpec with DataFrameSuiteBase {
+class SnowflakeWriterMergerTest extends AnyWordSpec with DataFrameSuiteBase {
 
   val account = ""
   val user = ""

@@ -10,10 +10,12 @@ class HadoopFSTest extends SparkTestBase {
 
     dfFromAuthors(bradbury).write
       .format("parquet")
+      .mode("overwrite")
       .save("/persons")
 
     dfFromBooks(martian).write
       .format("parquet")
+      .mode("overwrite")
       .save("/persons/books/")
   }
 
