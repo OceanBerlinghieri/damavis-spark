@@ -1,7 +1,6 @@
 package com.damavis.spark.utils
 
 import java.io.File
-
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hdfs.MiniDFSCluster
 import org.apache.hadoop.test.PathUtils
@@ -25,7 +24,7 @@ object HDFSCluster {
       }
     }
 
-    hdfsCluster.getNameNodeURI()
+    hdfsCluster.getNameNodeURI
   }
 
   class HDFSCluster extends HDFSClusterLike
@@ -33,19 +32,19 @@ object HDFSCluster {
   trait HDFSClusterLike {
     @transient private var hdfsCluster: MiniDFSCluster = null
 
-    def startHDFS() = {
+    def startHDFS(): Unit = {
       println("Starting HDFS Cluster...")
-      val baseDir = new File(PathUtils.getTestDir(getClass()), "miniHDFS")
+      val baseDir = new File(PathUtils.getTestDir(getClass), "miniHDFS")
 
       val conf = new Configuration()
-      conf.set(MiniDFSCluster.HDFS_MINIDFS_BASEDIR, baseDir.getAbsolutePath())
+      conf.set(MiniDFSCluster.HDFS_MINIDFS_BASEDIR, baseDir.getAbsolutePath)
 
       val builder = new MiniDFSCluster.Builder(conf)
       hdfsCluster = builder.nameNodePort(8020).format(true).build()
       hdfsCluster.waitClusterUp()
     }
 
-    def getNameNodeURI(): String = {
+    def getNameNodeURI: String = {
       "hdfs://localhost:" + hdfsCluster.getNameNodePort()
     }
 

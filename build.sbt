@@ -6,21 +6,21 @@ val sparkVersion = "3.5.0"
 val sparkTestVersion = "3.5.0"
 
 val dependencies = Seq(
-  "org.apache.spark" %% "spark-core" % sparkVersion % Provided,
-  "org.apache.spark" %% "spark-sql" % sparkVersion % Provided,
-  "org.apache.spark" %% "spark-hive" % sparkVersion % Provided,
-  "org.apache.spark" %% "spark-avro" % sparkVersion % Provided,
-  "io.delta" %% "delta-core" % "2.4.0",
-
-  "com.typesafe" % "config" % "1.4.3")
+  "org.apache.spark" %% "spark-core" % sparkVersion,
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+  "org.apache.spark" %% "spark-hive" % sparkVersion,
+  "org.apache.spark" %% "spark-avro" % sparkVersion,
+  "io.delta" %% "delta-spark" % "3.2.0",
+  "com.typesafe" % "config" % "1.4.3",
+)
 
 val testDependencies = Seq(
-  "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-  "org.scalamock" %% "scalamock" % "6.0.0" % Test,
-  "org.apache.hadoop" % "hadoop-hdfs" % "3.3.6" % Test,
-  "org.apache.hadoop" % "hadoop-common" % "3.3.6" % Test,
-  "org.apache.hadoop" % "hadoop-minicluster" % "3.3.6" % Test,
-  "com.holdenkarau" %% "spark-testing-base" % s"${sparkTestVersion}_2.0.1" % Test)
+  "org.scalatest" %% "scalatest" % "3.2.19",
+  "org.scalamock" %% "scalamock" % "6.0.0",
+  "org.apache.hadoop" % "hadoop-minicluster" % "3.3.6",
+  "com.holdenkarau" %% "spark-testing-base" % s"${sparkTestVersion}_2.0.1",
+  "org.mockito" % "mockito-core" % "4.6.1" % Test
+)
 
 import xerial.sbt.Sonatype._
 
@@ -57,18 +57,29 @@ val settings = Seq(
 lazy val root = (project in file("."))
   .settings(name := "damavis-spark")
   .settings(settings)
-  .settings(publishArtifact := false)
+  .settings(
+    publishArtifact := false,
+    excludeDependencies +="org.apache.hadoop" % "hadoop-client-api"
+  )
   .aggregate(core, azure, snowflake)
 
 lazy val core = (project in file("damavis-spark-core"))
   .settings(settings)
   .settings(name := "damavis-spark-core")
-  .settings(crossScalaVersions := supportedScalaVersions)
+  .settings(
+    crossScalaVersions := supportedScalaVersions,
+    excludeDependencies +="org.apache.hadoop" % "hadoop-client-api"
+
+  )
 
 lazy val azure = (project in file("damavis-spark-azure"))
   .settings(settings)
   .settings(name := "damavis-spark-azure")
-  .settings(crossScalaVersions := supportedScalaVersions)
+  .settings(
+    crossScalaVersions := supportedScalaVersions,
+    excludeDependencies +="org.apache.hadoop" % "hadoop-client-api"
+
+  )
   .dependsOn(core)
 
 lazy val snowflake = (project in file("damavis-spark-snowflake"))
@@ -76,5 +87,8 @@ lazy val snowflake = (project in file("damavis-spark-snowflake"))
   .settings(name := "damavis-spark-snowflake")
   .settings(
     crossScalaVersions := supportedScalaVersions,
-    libraryDependencies ++= Seq("net.snowflake" %% "spark-snowflake" % "2.8.2-spark_3.0"))
+    libraryDependencies ++= Seq("net.snowflake" %% "spark-snowflake" % "3.0.0"),
+    excludeDependencies += "org.apache.hadoop" % "hadoop-client-api"
+
+  )
   .dependsOn(core)

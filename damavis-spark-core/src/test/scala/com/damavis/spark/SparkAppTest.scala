@@ -19,7 +19,8 @@ class SparkAppTest extends AnyFlatSpec with SparkApp {
     // Hive metastore configuration
     "spark.sql.extensions" -> "io.delta.sql.DeltaSparkSessionExtension",
     "spark.sql.catalog.spark_catalog" -> "org.apache.spark.sql.delta.catalog.DeltaCatalog",
-    "spark.sql.catalogImplementation" -> "hive"
+    "spark.sql.catalogImplementation" -> "hive",
+    "spark.master" -> "local[*]"
   )
 
   "An SparkApp" should

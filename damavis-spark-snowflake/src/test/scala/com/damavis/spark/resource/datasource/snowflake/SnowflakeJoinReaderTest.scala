@@ -3,9 +3,9 @@ package com.damavis.spark.resource.datasource.snowflake
 import java.sql.Date
 
 import com.holdenkarau.spark.testing.DataFrameSuiteBase
-import org.scalatest.{FunSuite, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
 
-class SnowflakeJoinReaderTest extends WordSpec with DataFrameSuiteBase {
+class SnowflakeJoinReaderTest extends AnyWordSpec with DataFrameSuiteBase {
 
   val account = ""
   val user = ""
